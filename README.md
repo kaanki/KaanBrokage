@@ -57,7 +57,7 @@ This project is designed as a **spring-boot application** with H2 in-memory data
 ## Getting Started
 ### Prerequisites
 - Java 17+ installed  
-- Maven installed  
+- Maven 3.11 installed  
 
 ### Build and Run
 ```bash
