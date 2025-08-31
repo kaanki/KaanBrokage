@@ -51,7 +51,7 @@ public class KaanBrokageApplicationTests {
         });
         Customer testCustomer = new Customer();
         testCustomer.setId(1L);
-        testCustomer.setUsername("CUST-1");
+        testCustomer.setUsername("1");
         testCustomer.setRole(Role.CUSTOMER);
 
         Authentication auth = new UsernamePasswordAuthenticationToken(
