@@ -17,7 +17,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(customer.getId().toString())
                 .claim("ROLE", customer.getRole().name())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 gün
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                 .compact();
     }

@@ -15,7 +15,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private static final long EXPIRATION = 1000 * 60 * 60 * 24; // 24 saat
+    private static final long EXPIRATION = 1000 * 60 * 60 * 24;
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(UserDetails userDetails) {
