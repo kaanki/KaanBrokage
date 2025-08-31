@@ -2,7 +2,6 @@ package com.example.KaanBrokage.util;
 
 import com.example.KaanBrokage.entity.Customer;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;

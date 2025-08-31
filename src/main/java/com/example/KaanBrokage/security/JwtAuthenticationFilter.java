@@ -1,6 +1,5 @@
 package com.example.KaanBrokage.security;
 
-import com.example.KaanBrokage.service.CustomerService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -20,12 +19,8 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final CustomerService customerService;
     private static final String SECRET_KEY = "721a5e5946792fe87efdc1e3e92a7141196e8520f558dd9d99706c63053ad600";
 
-    public JwtAuthenticationFilter(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -1,7 +1,6 @@
 package com.example.KaanBrokage.dto;
 
 
-
 public class LoginResponse extends BaseResponse {
 
 

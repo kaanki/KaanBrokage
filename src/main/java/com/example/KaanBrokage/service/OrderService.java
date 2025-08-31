@@ -39,14 +39,14 @@ public class OrderService {
         }
         String customerIdStr = customerId.toString();
 
-        Order o = new Order();
-        o.setCustomerId(customerIdStr);
-        o.setAssetName(req.getAssetName());
-        o.setOrderSide(req.getSide());
-        o.setSize(req.getSize());
-        o.setPrice(req.getPrice());
-        o.setStatus(Status.PENDING);
-        o.setCreateDate(Instant.now());
+        Order order = new Order();
+        order.setCustomerId(customerIdStr);
+        order.setAssetName(req.getAssetName());
+        order.setOrderSide(req.getSide());
+        order.setSize(req.getSize());
+        order.setPrice(req.getPrice());
+        order.setStatus(Status.PENDING);
+        order.setCreateDate(Instant.now());
 
 
         if (req.getSide() == Side.BUY) {
@@ -57,14 +57,14 @@ public class OrderService {
             tryAsset.setUsableSize(tryAsset.getUsableSize().subtract(requiredTry));
             assets.save(tryAsset);
         } else {
-            Asset a = assets.findByCustomerIdAndAssetName(req.getCustomerId(), req.getAssetName()).orElseThrow(() -> new NotAllowedException("Asset not found for customer: " + req.getAssetName()));
-            if (a.getUsableSize().compareTo(req.getSize()) < 0)
+            Asset asset = assets.findByCustomerIdAndAssetName(req.getCustomerId(), req.getAssetName()).orElseThrow(() -> new NotAllowedException("Asset not found for customer: " + req.getAssetName()));
+            if (asset.getUsableSize().compareTo(req.getSize()) < 0)
                 throw new NotAllowedException("Insufficient asset usable balance to SELL");
-            a.setUsableSize(a.getUsableSize().subtract(req.getSize()));
-            assets.save(a);
+            asset.setUsableSize(asset.getUsableSize().subtract(req.getSize()));
+            assets.save(asset);
         }
 
-        return orders.save(o);
+        return orders.save(order);
     }
 
     public Page<Order> list(String customerId, LocalDate from, LocalDate to, int page, int size) {
@@ -93,7 +93,8 @@ public class OrderService {
     @Transactional
     public void cancel(Long orderId) {
         Order orderToCancel = orders.findById(orderId).orElseThrow(() -> new NotAllowedException("Order not found"));
-        if (orderToCancel.getStatus() != Status.PENDING) throw new NotAllowedException("Only PENDING orders can be canceled");
+        if (orderToCancel.getStatus() != Status.PENDING)
+            throw new NotAllowedException("Only PENDING orders can be canceled");
 
         if (orderToCancel.getOrderSide() == Side.BUY) {
             BigDecimal refund = orderToCancel.getSize().multiply(orderToCancel.getPrice());
@@ -101,9 +102,9 @@ public class OrderService {
             tryAsset.setUsableSize(tryAsset.getUsableSize().add(refund));
             assets.save(tryAsset);
         } else {
-            Asset a = assets.findByCustomerIdAndAssetName(orderToCancel.getCustomerId(), orderToCancel.getAssetName()).orElseThrow();
-            a.setUsableSize(a.getUsableSize().add(orderToCancel.getSize()));
-            assets.save(a);
+            Asset asset = assets.findByCustomerIdAndAssetName(orderToCancel.getCustomerId(), orderToCancel.getAssetName()).orElseThrow();
+            asset.setUsableSize(asset.getUsableSize().add(orderToCancel.getSize()));
+            assets.save(asset);
         }
         orderToCancel.setStatus(Status.CANCELED);
         orders.save(orderToCancel);
@@ -112,7 +113,8 @@ public class OrderService {
     @Transactional
     public void match(Long orderId) {
         Order orderToMatch = orders.findById(orderId).orElseThrow(() -> new NotAllowedException("Order not found"));
-        if (orderToMatch.getStatus() != Status.PENDING) throw new NotAllowedException("Only PENDING orders can be matched");
+        if (orderToMatch.getStatus() != Status.PENDING)
+            throw new NotAllowedException("Only PENDING orders can be matched");
 
         if (orderToMatch.getOrderSide() == Side.BUY) {
             BigDecimal cost = orderToMatch.getSize().multiply(orderToMatch.getPrice());
@@ -123,12 +125,12 @@ public class OrderService {
             assets.save(tryAsset);
 
             Asset bought = assets.findByCustomerIdAndAssetName(orderToMatch.getCustomerId(), orderToMatch.getAssetName()).orElseGet(() -> {
-                Asset a = new Asset();
-                a.setCustomerId(orderToMatch.getCustomerId());
-                a.setAssetName(orderToMatch.getAssetName());
-                a.setSize(BigDecimal.ZERO);
-                a.setUsableSize(BigDecimal.ZERO);
-                return assets.save(a);
+                Asset asset = new Asset();
+                asset.setCustomerId(orderToMatch.getCustomerId());
+                asset.setAssetName(orderToMatch.getAssetName());
+                asset.setSize(BigDecimal.ZERO);
+                asset.setUsableSize(BigDecimal.ZERO);
+                return assets.save(asset);
             });
             bought.setSize(bought.getSize().add(orderToMatch.getSize()));
             bought.setUsableSize(bought.getUsableSize().add(orderToMatch.getSize()));
@@ -150,9 +152,6 @@ public class OrderService {
         orderToMatch.setStatus(Status.MATCHED);
         orders.save(orderToMatch);
     }
-
-
-
 
 
 }

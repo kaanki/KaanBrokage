@@ -25,11 +25,11 @@ public class AuthService {
             return new BaseResponse(Boolean.FALSE, "Customer already exists");
         }
 
-        Customer c = new Customer();
-        c.setUsername(request.getUsername());
-        c.setPassword(request.getPassword());
-        c.setRole(request.getRole());
-        customerRepository.save(c);
+        Customer customer = new Customer();
+        customer.setUsername(request.getUsername());
+        customer.setPassword(request.getPassword());
+        customer.setRole(request.getRole());
+        customerRepository.save(customer);
 
         return new BaseResponse(Boolean.TRUE, "Register success");
     }

@@ -14,7 +14,10 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findByCustomerIdAndCreateDateBetween(String customerId, Instant from, Instant to, Pageable pageable);
+
     Page<Order> findByCustomerId(String customerId, Pageable pageable);
+
     List<Order> findByCustomerId(String customerId);
+
     long countByCustomerIdAndStatus(String customerId, Status status);
 }
