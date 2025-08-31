@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "f14f17bd-fd13-4e99-baf7-8280fcc65ad0",
+		"name": "KaanBrokage - Test collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18056897"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"kaan1\",\r\n  \"password\": \"admin123\",\r\n  \"fullName\": \"Kaan Keleş\",\r\n  \"role\":\"ADMIN\"\r\n}\r\n\r\n/*\r\nExpected Result\r\n{\r\n    \"success\": true,\r\n    \"message\": \"Register success\"\r\n}\r\n*/\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"kaan1\",\r\n  \"password\": \"admin123\"\r\n}\r\n\r\n/*\r\nExpected Result:\r\n{\r\n    \"success\": true,\r\n    \"message\": \"Login Success\",\r\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA\",\r\n    \"customerId\": \"1\",\r\n    \"username\": \"kaan1\"\r\n}\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\nExpected Result : *USE BEARER FROM LOGIN*\r\n\r\n{\r\n    \"content\": [\r\n        {\r\n            \"id\": null,\r\n            \"customerId\": \"1\",\r\n            \"assetName\": \"ASELS\",\r\n            \"side\": \"BUY\",\r\n            \"size\": 10.0000,\r\n            \"price\": 56.5000,\r\n            \"status\": \"PENDING\",\r\n            \"createDate\": \"2025-08-31T17:32:54.080589Z\"\r\n        },\r\n        {\r\n            \"id\": null,\r\n            \"customerId\": \"1\",\r\n            \"assetName\": \"THYAO\",\r\n            \"side\": \"SELL\",\r\n            \"size\": 5.0000,\r\n            \"price\": 23.0000,\r\n            \"status\": \"MATCHED\",\r\n            \"createDate\": \"2025-08-31T17:32:54.081590Z\"\r\n        }\r\n    ],\r\n    \"page\": 0,\r\n    \"size\": 20,\r\n    \"totalElements\": 2,\r\n    \"totalPages\": 1\r\n}\r\n\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic ZW1wbG95ZWU6ZW1wMTIz",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"1\",\r\n  \"assetName\": \"ASELS\",\r\n  \"side\": \"BUY\",\r\n  \"size\": 1000,\r\n  \"price\": 57.5\r\n}\r\n\r\n/*\r\nExpected Result : *USE BEARER FROM LOGIN*\r\n\r\n{\r\n    \"success\": true,\r\n    \"message\": \"Success\",\r\n    \"id\": 5,\r\n    \"customerId\": \"1\",\r\n    \"assetName\": \"ASELS\",\r\n    \"side\": \"BUY\",\r\n    \"size\": 1000,\r\n    \"price\": 57.5,\r\n    \"status\": \"PENDING\"\r\n}\r\n\r\n*/\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order (Cancel)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic ZW1wbG95ZWU6ZW1wMTIz",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\nExpected Result : *USE BEARER FROM LOGIN*\r\n\r\n200OK\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Assets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic ZW1wbG95ZWU6ZW1wMTIz",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\nExpected Result : *USE BEARER FROM LOGIN*\r\n\r\n[\r\n    {\r\n        \"id\": 2,\r\n        \"customerId\": \"1\",\r\n        \"assetName\": \"ASELS\",\r\n        \"size\": 500.0000,\r\n        \"usableSize\": 500.0000\r\n    },\r\n    {\r\n        \"id\": 3,\r\n        \"customerId\": \"1\",\r\n        \"assetName\": \"GARAN\",\r\n        \"size\": 300.0000,\r\n        \"usableSize\": 300.0000\r\n    },\r\n    {\r\n        \"id\": 1,\r\n        \"customerId\": \"1\",\r\n        \"assetName\": \"TRY\",\r\n        \"size\": 100000.0000,\r\n        \"usableSize\": 100000.0000\r\n    }\r\n]\r\n\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/assets?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assets"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match Order Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiUk9MRSI6IkFETUlOIiwiZXhwIjoxNzU2NzQ4MDQ2fQ.i0prN_mYp78u051sh3Ve_DW4kW4A8xqgr_voBGrlj1FtJgdZkUTZ9nUv_5ysfuGWHVHTmTor5KJ4ThYHfTY2MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrYWFuIiwiaWF0IjoxNzU2NjM4MDQxLCJleHAiOjE3NTY2NzQwNDF9.KbARFC90v1GLroXAamu6_69TRqTtVozq04_o__uXXA4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "/*\r\nExpected Result : *USE BEARER FROM LOGIN*\r\n\r\n200OK\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/orders/5/match",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"orders",
+								"5",
+								"match"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "tkn-brr",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
