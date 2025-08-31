@@ -9,12 +9,10 @@ A Spring Boot application that simulates a basic stock market order management s
 2. [Business Domain](#business-domain)  
 3. [Features](#features)  
 4. [Tech Stack](#tech-stack)  
-5. [Getting Started](#getting-started)  
-6. [Database](#database)  
+5. [Prerequisites](#prerequisites)
+6. [Build And Run](#build-and-run)
 7. [API Endpoints](#api-endpoints)  
 8. [Testing](#testing)  
-9. [Future Improvements](#future-improvements)
-10. [Testing](#Testing)  
 
 ---
 
@@ -56,12 +54,11 @@ This project is designed as a **spring-boot application** with H2 in-memory data
 
 ---
 
-## Getting Started
 ### Prerequisites
 - Java 17+ installed  
 - Maven 3.11 installed  
 
-### Build and Run
+### Build And Run
 ```bash
 # Clone the repo
 git clone <repository_url>
@@ -73,6 +70,16 @@ mvn clean install
 # Run the application
 mvn spring-boot:run
 ```
+
+### API Endpoints
+- /auth/register
+- /auth/login
+- /api/orders (GET)
+- /api/orders (POST)
+- /api/orders (DELETE)
+- /api/assets
+- /api/admin/orders/?/match
+
 ### Testing
 
 Added Postman collection to project
