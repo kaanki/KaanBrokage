@@ -1,4 +1,4 @@
-package com.example.KaanBrokage.security;
+package com.example.KaanBrokage.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

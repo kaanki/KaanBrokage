@@ -3,6 +3,7 @@ package com.example.KaanBrokage.controller;
 
 import com.example.KaanBrokage.dto.*;
 import com.example.KaanBrokage.entity.Order;
+import com.example.KaanBrokage.repository.OrderRepository;
 import com.example.KaanBrokage.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -10,15 +11,18 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService service;
+    private final OrderRepository orderRepository;
 
-    public OrderController(OrderService service) {
+    public OrderController(OrderService service, OrderRepository orderRepository) {
         this.service = service;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -50,9 +54,19 @@ public class OrderController {
         return ListOrdersResponse.of(p.map(OrderDto::from));
     }
 
+    @GetMapping("/filter")
+    public ListOrdersResponse<OrderDto> listMyOrders(@RequestParam(required = false) LocalDate startDate,
+                                             @RequestParam(required = false) LocalDate endDate,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "20") int size) {
+        Page<Order> p = service.listMyOrders(startDate, endDate, page, size);
+        return ListOrdersResponse.of(p.map(OrderDto::from));
+    }
+
 
     @DeleteMapping("/{id}")
     public void cancel(@PathVariable Long id) {
         service.cancel(id);
     }
+
 }

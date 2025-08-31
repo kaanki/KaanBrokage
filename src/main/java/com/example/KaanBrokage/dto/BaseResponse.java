@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 public class BaseResponse {
-    private boolean success;
-    private String message;
 
     public BaseResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
     }
+
+    private boolean success;
+    private String message;
 
     public boolean isSuccess() {
         return success;

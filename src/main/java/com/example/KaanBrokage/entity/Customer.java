@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customers")
@@ -15,7 +16,9 @@ public class Customer {
 
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
+
 
     public Long getId() {
         return id;
@@ -46,6 +49,6 @@ public class Customer {
     }
 
     public void setRole(Role role) {
-        this.role = role;
+        this.role = Objects.requireNonNullElse(role, Role.CUSTOMER);
     }
 }

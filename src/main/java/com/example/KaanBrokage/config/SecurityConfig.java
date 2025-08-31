@@ -30,6 +30,7 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customerService = customerService;
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
         http
@@ -37,8 +38,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("api/orders/**").hasAnyRole("ADMIN","CUSTOMER")
-                        .requestMatchers("api/assets/**").hasAnyRole("ADMIN","CUSTOMER")
+                        .requestMatchers("api/orders/**").hasAnyRole("ADMIN", "CUSTOMER")
+                        .requestMatchers("api/assets/**").hasAnyRole("ADMIN", "CUSTOMER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

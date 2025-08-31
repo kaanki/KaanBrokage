@@ -23,26 +23,30 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 public class KaanBrokageApplicationTests {
 
-    @Autowired OrderService service;
-    @Autowired AssetRepository assets;
-    @Autowired OrderRepository orders;
+    @Autowired
+    OrderService service;
+    @Autowired
+    AssetRepository assets;
+    @Autowired
+    OrderRepository orders;
 
     private static final String C = "CUST-1";
 
-    @BeforeEach
-    void ensureTry(){
-        assets.findByCustomerIdAndAssetName(C, "TRY").ifPresentOrElse(a -> {}, () -> {
-            Asset a = new Asset();
-            a.setCustomerId(C);
-            a.setAssetName("TRY");
-            a.setSize(new BigDecimal("10000"));
-            a.setUsableSize(new BigDecimal("10000"));
-            assets.save(a);
-        });
-    }
-
+//    @BeforeEach
+//    void ensureTry() {
+//        assets.findByCustomerIdAndAssetName(C, "TRY").ifPresentOrElse(a -> {
+//        }, () -> {
+//            Asset a = new Asset();
+//            a.setCustomerId(C);
+//            a.setAssetName("TRY");
+//            a.setSize(new BigDecimal("10000"));
+//            a.setUsableSize(new BigDecimal("10000"));
+//            assets.save(a);
+//        });
+//    }
+//
 //    @Test
-//    void createBuyLocksTry(){
+//    void createBuyLocksTry() {
 //        CreateOrderRequest r = new CreateOrderRequest();
 //        r.setCustomerId(C);
 //        r.setAssetName("TTRK");
@@ -57,7 +61,7 @@ public class KaanBrokageApplicationTests {
 //    }
 //
 //    @Test
-//    void createSellLocksShares(){
+//    void createSellLocksShares() {
 //        Asset TTRK = assets.findByCustomerIdAndAssetName(C, "TTRK").orElseGet(() -> {
 //            Asset a = new Asset();
 //            a.setCustomerId(C);
@@ -81,7 +85,7 @@ public class KaanBrokageApplicationTests {
 //    }
 //
 //    @Test
-//    void cancelReleasesLocks(){
+//    void cancelReleasesLocks() {
 //        CreateOrderRequest r = new CreateOrderRequest();
 //        r.setCustomerId(C);
 //        r.setAssetName("TTRK");
@@ -95,7 +99,7 @@ public class KaanBrokageApplicationTests {
 //    }
 //
 //    @Test
-//    void matchBuyMovesBalances(){
+//    void matchBuyMovesBalances() {
 //        CreateOrderRequest r = new CreateOrderRequest();
 //        r.setCustomerId(C);
 //        r.setAssetName("TTRK");
@@ -109,7 +113,7 @@ public class KaanBrokageApplicationTests {
 //    }
 //
 //    @Test
-//    void insufficientFundsThrows(){
+//    void insufficientFundsThrows() {
 //        CreateOrderRequest r = new CreateOrderRequest();
 //        r.setCustomerId(C);
 //        r.setAssetName("TTRK");

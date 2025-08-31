@@ -5,6 +5,8 @@ import com.example.KaanBrokage.entity.*;
 import com.example.KaanBrokage.exception.NotAllowedException;
 import com.example.KaanBrokage.repository.AssetRepository;
 import com.example.KaanBrokage.repository.OrderRepository;
+import com.example.KaanBrokage.util.JwtUtil;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -30,8 +33,14 @@ public class OrderService {
         if (req.getSide() == Side.BUY && "TRY".equalsIgnoreCase(req.getAssetName()))
             throw new NotAllowedException("Cannot BUY TRY. TRY is only the quote asset.");
 
+        Long customerId = JwtUtil.getCurrentCustomerId();
+        if (customerId == null) {
+            throw new IllegalStateException("Customer not authenticated");
+        }
+        String customerIdStr = customerId.toString();
+
         Order o = new Order();
-        o.setCustomerId(req.getCustomerId());
+        o.setCustomerId(customerIdStr);
         o.setAssetName(req.getAssetName());
         o.setOrderSide(req.getSide());
         o.setSize(req.getSize());
@@ -65,6 +74,19 @@ public class OrderService {
             Instant t = to.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC).minusMillis(1);
             return orders.findByCustomerIdAndCreateDateBetween(customerId, f, t, pr);
         }
+        return orders.findByCustomerId(customerId, pr);
+    }
+
+    public Page<Order> listMyOrders(LocalDate from, LocalDate to, int page, int size) {
+        String customerId = String.valueOf(JwtUtil.getCurrentCustomerId());
+        PageRequest pr = PageRequest.of(page, size);
+
+        if (from != null && to != null) {
+            Instant f = from.atStartOfDay().toInstant(ZoneOffset.UTC);
+            Instant t = to.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC).minusMillis(1);
+            return orders.findByCustomerIdAndCreateDateBetween(customerId, f, t, pr);
+        }
+
         return orders.findByCustomerId(customerId, pr);
     }
 
@@ -128,4 +150,9 @@ public class OrderService {
         orderToMatch.setStatus(Status.MATCHED);
         orders.save(orderToMatch);
     }
+
+
+
+
+
 }
