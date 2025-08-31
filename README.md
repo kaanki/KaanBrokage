@@ -82,7 +82,14 @@ mvn spring-boot:run
 
 ### Testing
 
-Added Postman collection to project
+Added Postman collection to project.
+The Postman collection is divided into two sections: Customer and Admin. When executed in order, each request should return the expected results as indicated in the request body. Please ensure to run the requests sequentially to maintain the correct flow and data dependencies.
+
+Customer section: Contains endpoints that simulate actions a regular customer can perform.
+
+Admin section: Contains endpoints reserved for administrative tasks, such as matching orders or managing all customers.
+
+Following the sequence will help verify that the system behaves as intended for both roles.
 
 - STEP-1 REGISTER with Role "ADMIN" or "CUSTOMER"
 - STEP-2 LOGIN with registered user
