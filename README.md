@@ -76,3 +76,8 @@ mvn spring-boot:run
 ### Testing
 
 Added Postman collection to project
+
+STEP-1 REGISTER with Role "ADMIN" or "CUSTOMER"
+STEP-2 LOGIN with registered user
+STEP-3 paste JWT token returned from login
+STEP-4 Only Admin can use Match, Both could use other endpoints with bearer token.
