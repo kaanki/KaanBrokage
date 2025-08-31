@@ -13,7 +13,8 @@ A Spring Boot application that simulates a basic stock market order management s
 6. [Database](#database)  
 7. [API Endpoints](#api-endpoints)  
 8. [Testing](#testing)  
-9. [Future Improvements](#future-improvements)  
+9. [Future Improvements](#future-improvements)
+10. [Testing](#Testing)  
 
 ---
 
@@ -71,3 +72,7 @@ mvn clean install
 
 # Run the application
 mvn spring-boot:run
+```
+### Testing
+
+Added Postman collection to project
