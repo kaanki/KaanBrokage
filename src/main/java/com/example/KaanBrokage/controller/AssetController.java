@@ -13,11 +13,14 @@ import java.util.List;
 @RequestMapping("/api/assets")
 public class AssetController {
     private final AssetService assets;
-    public AssetController(AssetService assets){ this.assets = assets; }
+
+    public AssetController(AssetService assets) {
+        this.assets = assets;
+    }
 
 
     @GetMapping
-    public List<Asset> list(@RequestParam String customerId){
+    public List<Asset> list(@RequestParam String customerId) {
         return assets.listByCustomer(customerId);
     }
 }

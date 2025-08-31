@@ -3,6 +3,7 @@ package com.example.KaanBrokage.dto;
 
 import com.example.KaanBrokage.entity.Order;
 import com.example.KaanBrokage.entity.Status;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -18,9 +19,8 @@ public class OrderDto {
     public Instant createDate;
 
 
-    public static OrderDto from(Order o){
+    public static OrderDto from(Order o) {
         OrderDto d = new OrderDto();
-        d.id = o.getId();
         d.customerId = o.getCustomerId();
         d.assetName = o.getAssetName();
         d.side = o.getOrderSide().name();

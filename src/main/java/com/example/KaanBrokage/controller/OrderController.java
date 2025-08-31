@@ -16,37 +16,43 @@ import java.time.LocalDate;
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService service;
-    public OrderController(OrderService service){ this.service = service; }
+
+    public OrderController(OrderService service) {
+        this.service = service;
+    }
 
 
     @PostMapping
-    public CreateOrderResponse create(@Valid @RequestBody CreateOrderRequest req){
-        Order o = service.create(req);
-        CreateOrderResponse r = new CreateOrderResponse();
-        r.id = o.getId();
-        r.customerId = o.getCustomerId();
-        r.assetName = o.getAssetName();
-        r.side = o.getOrderSide().name();
-        r.size = o.getSize();
-        r.price = o.getPrice();
-        r.status = o.getStatus();
-        return r;
+    public CreateOrderResponse create(@Valid @RequestBody CreateOrderRequest req) {
+        Order order = service.create(req);
+        CreateOrderResponse response = new CreateOrderResponse(
+                Boolean.TRUE,
+                "Success",
+                order.getId(),
+                order.getCustomerId(),
+                order.getAssetName(),
+                order.getOrderSide().name(),
+                order.getSize(),
+                order.getPrice(),
+                order.getStatus()
+        );
+        return response;
     }
 
 
     @GetMapping
-    public PageResponse<OrderDto> list(@RequestParam String customerId,
-                                       @RequestParam(required = false) LocalDate from,
-                                       @RequestParam(required = false) LocalDate to,
-                                       @RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "20") int size){
-        Page<Order> p = service.list(customerId, from, to, page, size);
-        return PageResponse.of(p.map(OrderDto::from));
+    public ListOrdersResponse<OrderDto> list(@RequestParam String customerId,
+                                             @RequestParam(required = false) LocalDate startDate,
+                                             @RequestParam(required = false) LocalDate endDate,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "20") int size) {
+        Page<Order> p = service.list(customerId, startDate, endDate, page, size);
+        return ListOrdersResponse.of(p.map(OrderDto::from));
     }
 
 
     @DeleteMapping("/{id}")
-    public void cancel(@PathVariable Long id){
+    public void cancel(@PathVariable Long id) {
         service.cancel(id);
     }
 }

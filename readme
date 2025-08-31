@@ -1,0 +1,155 @@
+KaanBrokage – Stock Order Management System
+
+A Spring Boot application that simulates a basic stock market order management system. Users (customers) can manage their assets and place buy/sell orders. Admin can match pending orders and update asset balances.
+
+Table of Contents
+
+Project Overview
+
+Business Domain
+
+Features
+
+Tech Stack
+
+Getting Started
+
+Database
+
+API Endpoints
+
+Testing
+
+Future Improvements
+
+Project Overview
+
+This project is designed as a spring-boot application with H2 in-memory database. It supports:
+
+Managing customers and assets
+
+Creating buy/sell orders
+
+Admin-level order matching
+
+REST API endpoints secured per customer
+
+Business Domain
+
+Customers have accounts with assets, e.g., TRY, THYAO, GARAN.
+
+Customers can place buy or sell orders for assets.
+
+Orders can be pending or matched.
+
+Admin can match pending orders, updating both the asset balances and order statuses.
+
+Features
+
+Customer registration & login (per customer authorization)
+
+Add / view / manage assets
+
+Place buy/sell orders
+
+List and filter orders
+
+Admin endpoint to match orders
+
+Validation for all inputs
+
+Unit and integration tests for all endpoints
+
+Tech Stack
+
+Java 17+
+
+Spring Boot 3.5.x
+
+Spring Web, Spring Data JPA
+
+H2 in-memory database (for dev & test)
+
+Maven
+
+JUnit 5 + MockMvc (testing)
+
+Getting Started
+Prerequisites
+
+Java 17+ installed
+
+Maven installed
+
+Build and Run
+# Clone the repo
+git clone <repository_url>
+cd KaanBrokage
+
+# Build the project
+mvn clean install
+
+# Run the application
+mvn spring-boot:run
+
+
+The application will start on http://localhost:8080
+.
+
+Database
+
+H2 in-memory database
+
+import.sql populates initial assets & orders for testing
+
+Access H2 console: http://localhost:8080/h2-console
+
+JDBC URL: jdbc:h2:mem:testdb
+
+User: sa
+
+Password: (leave empty)
+
+API Endpoints
+Customer / Asset Endpoints
+Method	Path	Description
+POST	/api/assets	Add new asset
+GET	/api/assets	Get all assets
+Order Endpoints
+Method	Path	Description
+POST	/api/orders	Create a new order
+GET	/api/orders	List all orders
+Admin Endpoints
+Method	Path	Description
+POST	/api/admin/match-orders	Match pending orders and update assets
+
+Note: Customers can only access their own orders & assets. Admin has full access.
+
+Testing
+
+Run tests using Maven:
+
+mvn test
+
+
+Covers:
+
+Asset creation & retrieval
+
+Order creation & retrieval
+
+Admin order matching
+
+Validation & error handling
+
+Future Improvements
+
+JWT-based authentication & authorization
+
+WebSocket integration for real-time order updates
+
+Order matching engine with multiple asset types
+
+Persistent database (MySQL/PostgreSQL) for production
+
+Swagger/OpenAPI documentation

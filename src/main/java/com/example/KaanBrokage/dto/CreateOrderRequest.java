@@ -3,6 +3,7 @@ package com.example.KaanBrokage.dto;
 
 import com.example.KaanBrokage.entity.Side;
 import jakarta.validation.constraints.*;
+
 import java.math.BigDecimal;
 
 
@@ -13,9 +14,11 @@ public class CreateOrderRequest {
     private String assetName;
     @NotNull
     private Side side;
-    @NotNull @DecimalMin(value = "0.0001")
+    @NotNull
+    @DecimalMin(value = "0.0001")
     private BigDecimal size;
-    @NotNull @DecimalMin(value = "0.0001")
+    @NotNull
+    @DecimalMin(value = "0.0001")
     private BigDecimal price;
 
     public String getCustomerId() {

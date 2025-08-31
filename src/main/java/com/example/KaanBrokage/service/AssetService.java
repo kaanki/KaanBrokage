@@ -14,16 +14,19 @@ import java.util.List;
 @Service
 public class AssetService {
     private final AssetRepository assets;
-    public AssetService(AssetRepository assets){ this.assets = assets; }
+
+    public AssetService(AssetRepository assets) {
+        this.assets = assets;
+    }
 
 
-    public List<Asset> listByCustomer(String customerId){
+    public List<Asset> listByCustomer(String customerId) {
         return assets.findByCustomerId(customerId);
     }
 
 
     @Transactional
-    public Asset getOrCreate(String customerId, String assetName){
+    public Asset getOrCreate(String customerId, String assetName) {
         return assets.findByCustomerIdAndAssetName(customerId, assetName)
                 .orElseGet(() -> {
                     Asset a = new Asset();
@@ -37,5 +40,7 @@ public class AssetService {
 
 
     @Transactional
-    public Asset save(Asset a){ return assets.save(a); }
+    public Asset save(Asset a) {
+        return assets.save(a);
+    }
 }
