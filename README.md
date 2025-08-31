@@ -21,7 +21,10 @@ This project is designed as a **spring-boot application** with H2 in-memory data
 - Managing customers and assets
 - Creating buy/sell orders
 - Admin-level order matching
-- REST API endpoints secured per customer  
+- REST API endpoints secured per customer
+
+ <img width="1589" height="349" alt="image" src="https://github.com/user-attachments/assets/cbabec32-ab7c-4751-9f8e-e452e9936922" />
+
 
 ---
 
