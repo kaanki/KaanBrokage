@@ -39,7 +39,8 @@ This project is designed as a **spring-boot application** with H2 in-memory data
 - Place buy/sell orders  
 - List and filter orders  
 - Admin endpoint to match orders  
-- Validation for all inputs  
+- Validation for all inputs
+- Authorization for ADMIN and CUSTOMERS
 - Unit tests for all endpoints  
 
 ---
